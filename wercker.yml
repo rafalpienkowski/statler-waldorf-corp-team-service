@@ -22,6 +22,8 @@ build:
         cwd: src/StatlerWaldorfCorp.TeamService
         code: |
           chmod +x ./docker_entrypoint.sh
+test:
+  steps:
     - script:
         name: test-restore
         cwd: test/StatlerWaldorfCorp.TeamService.Tests
@@ -37,6 +39,8 @@ build:
         cwd: test/StatlerWaldorfCorp.TeamService.Tests
         code: |
           dotnet test
+integration:
+  steps:
     - script:
         name: integration-test-restore
         cwd: test/StatlerWaldorfCorp.TeamService.Tests.Integration
