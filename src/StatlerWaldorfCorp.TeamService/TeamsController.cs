@@ -24,7 +24,7 @@ namespace StatlerWaldorfCorp.TeamService
         public async Task<IActionResult> GetAllTeamsAsync() => Ok(_teamRepository.GetTeams());
 
         [HttpPost]
-        public async Task<IActionResult> CreateTeam(Team team)
+        public async Task<IActionResult> CreateTeam([FromBody] Team team)
         {
             _teamRepository.AddTeam(team);
             return NoContent();
