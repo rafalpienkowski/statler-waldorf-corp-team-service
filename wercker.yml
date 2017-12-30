@@ -19,6 +19,7 @@ build:
           dotnet publish -c Release -o publish	 
     - script:
         name: chmod
+        cwd: src/StatlerWaldorfCorp.TeamService
         code: |
           chmod +x ./docker_entrypoint.sh
     - script:
