@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace StatlerWaldorfCorp.TeamService
 {
+    [Route("api/[controller]")]
     public class TeamsController : Controller
     {
         private readonly ITeamRepository _teamRepository;

@@ -4,13 +4,17 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
 using StatlerWaldorfCorp.TeamService.Persistence;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
 
 namespace StatlerWaldorfCorp.TeamService
 {
-    internal class Startup
+    public class Startup
     {
-        public Startup(IHostingEnvironment env)
+        public IConfiguration Configuration { get; }
+        
+        public Startup(IConfiguration configuration)
         {
+            Configuration = configuration;
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -21,9 +25,7 @@ namespace StatlerWaldorfCorp.TeamService
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            app.Run(async (context) => {
-                await context.Response.WriteAsync("Hello Word from container!");
-            });
+            app.UseMvc();
         }
     }
 }
