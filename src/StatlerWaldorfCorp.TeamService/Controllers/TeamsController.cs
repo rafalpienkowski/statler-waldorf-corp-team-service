@@ -44,8 +44,14 @@ namespace StatlerWaldorfCorp.TeamService
         }
 
         [HttpPut]
-        public IActionResult UpdateTeam([FromBody] Team team)
+        [Route("{id}")]
+        public IActionResult UpdateTeam([FromBody] Team team, Guid id)
         {
+            var oldTeam = _teamRepository.GetTeam(id);
+            if (oldTeam == null)
+            {
+                return NotFound();
+            }
             _teamRepository.UpdateTeam(team);
             return NoContent();
         }
@@ -59,7 +65,7 @@ namespace StatlerWaldorfCorp.TeamService
             {
                 return NotFound();
             }
-
+            _teamRepository.DeleteTeam(id);
             return Ok(team.Id);
         }
     }
