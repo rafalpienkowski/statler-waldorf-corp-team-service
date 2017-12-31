@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using StatlerWaldorfCorp.TeamService.Persistence;
 using System.Threading.Tasks;
+using StatlerWaldorfCorp.TeamService.LocationClient;
 
 namespace StatlerWaldorfCorp.TeamService
 {
@@ -14,10 +15,12 @@ namespace StatlerWaldorfCorp.TeamService
     public class MembersController : Controller
     {
         private readonly ITeamRepository _teamRepository;
+        private readonly ILocationClient _locationClient;
 
-        public MembersController(ITeamRepository teamRepository)
+        public MembersController(ITeamRepository teamRepository, ILocationClient locationClient)
         {
             _teamRepository = teamRepository;
+            _locationClient = locationClient;
         }
 
         [HttpGet]
@@ -35,7 +38,7 @@ namespace StatlerWaldorfCorp.TeamService
 
         [HttpGet]
         [Route("{memberId}")]
-        public IActionResult GetTeamMember(Guid teamId, Guid memberId)
+        public async Task<IActionResult> GetTeamMember(Guid teamId, Guid memberId)
         {
             var team = _teamRepository.GetTeam(teamId);
             if (team == null)
@@ -49,7 +52,13 @@ namespace StatlerWaldorfCorp.TeamService
                 return NotFound();
             }
 
-            return Ok(member);
+            return Ok(new LocatedMember
+            {
+                Id = member.Id,
+                FirstName = member.FirstName,
+                LastName = member.LastName,
+                LastLocation = await _locationClient.GetLatestForMemberAsync(member.Id)
+            });
         }
 
         [HttpPut]

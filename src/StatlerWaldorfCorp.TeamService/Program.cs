@@ -10,8 +10,10 @@ namespace StatlerWaldorfCorp.TeamService
         static void Main(string[] args)
         {
             var config = new ConfigurationBuilder()
-                    .AddEnvironmentVariables()
-                    .Build();
+                .AddCommandLine(args)
+            	.Build();
+
+			Startup.Args = args;
 
             var host = new WebHostBuilder()
                 .UseKestrel()
@@ -19,7 +21,7 @@ namespace StatlerWaldorfCorp.TeamService
                 .UseConfiguration(config)
                 .Build();
 
-            host.Run();
+            host.Run(); 
         }
     }
 }
