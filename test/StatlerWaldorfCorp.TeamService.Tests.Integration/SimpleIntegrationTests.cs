@@ -49,9 +49,9 @@ namespace StatlerWaldorfCorp.TeamService.Tests.Integration
             var raw = await getMessage.Content.ReadAsStringAsync();
             var teams = JsonConvert.DeserializeObject<List<Team>>(raw);
 
-            Assert.Equal(3, teams.Count);
-            Assert.Equal("Zombie", teams[2].Name);
-            Assert.Equal(_teamZombie.Id, teams[2].Id);
+            Assert.Equal(1, teams.Count);
+            Assert.Equal("Zombie", teams[0].Name);
+            Assert.Equal(_teamZombie.Id, teams[0].Id);
         }
     }
 }
