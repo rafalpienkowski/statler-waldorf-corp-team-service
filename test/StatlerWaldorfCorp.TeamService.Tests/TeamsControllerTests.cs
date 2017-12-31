@@ -14,23 +14,23 @@ namespace StatlerWaldorfCorp.TeamService.Tests
         TeamsController _controller = new TeamsController(new MemoryTeamRepository());
 
         [Fact]
-        public async void QueryTeamListReturnsCorrectTeamsAsync()
+        public void QueryTeamListReturnsCorrectTeams()
         {
-            var teams = ((await _controller.GetAllTeamsAsync() as OkObjectResult).Value as ICollection<Team>);
+            var teams = (_controller.GetAllTeams() as OkObjectResult).Value as ICollection<Team>;
             Assert.Equal(teams.Count, 3);
         }
 
         [Fact]
-        public async void CreateTeamAddsTeamToList()
+        public void CreateTeamAddsTeamToList()
         {
             var controller = new TeamsController(new MemoryTeamRepository());
-            var teams = ((await controller.GetAllTeamsAsync()) as OkObjectResult).Value as ICollection<Team>;
+            var teams = (controller.GetAllTeams() as OkObjectResult).Value as ICollection<Team>;
             var original = new List<Team>(teams);
 
-            var t = new Team("sample");
-            var result = controller.CreateTeam(t);
+            var team = new Team("sample");
+            var result = controller.CreateTeam(team);
 
-            var newTeamsRaw = ((await controller.GetAllTeamsAsync() as OkObjectResult).Value as ICollection<Team>);
+            var newTeamsRaw = (controller.GetAllTeams() as OkObjectResult).Value as ICollection<Team>;
 
             var newTeams = new List<Team>(newTeamsRaw);
             Assert.Equal(newTeams.Count, original.Count + 1);
