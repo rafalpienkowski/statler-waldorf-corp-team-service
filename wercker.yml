@@ -64,7 +64,7 @@ integration:
 deploy:
   steps:
     - internal/docker-push:
-        repository: rafalpienkowski/statler-waldorf-corp
+        repository: rafalpienkowski/statler-waldorf-corp-team-service
         tag: latest, 2.0
         username: $USERNAME
         password: $PASSWORD
