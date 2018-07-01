@@ -37,11 +37,9 @@ namespace StatlerWaldorfCorp.TeamService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddScoped<ITeamRepository, MemoryTeamRepository>();
+            services.AddSingleton<ITeamRepository, MemoryTeamRepository>();
             var locationUrl = Configuration.GetSection("location:url").Value;
-
             logger.LogInformation($"Using {locationUrl} for location service URL.");
-            
             services.AddSingleton<ILocationClient>(new HttpLocationClient(locationUrl));
         }
 

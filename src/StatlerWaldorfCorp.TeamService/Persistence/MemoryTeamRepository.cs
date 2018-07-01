@@ -7,7 +7,7 @@ namespace StatlerWaldorfCorp.TeamService.Persistence
 {
     public class MemoryTeamRepository : ITeamRepository
     {
-        protected static ICollection<Team> _teams;
+        protected ICollection<Team> _teams;
 
         public MemoryTeamRepository()
         {
