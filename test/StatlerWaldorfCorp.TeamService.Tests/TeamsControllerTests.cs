@@ -11,14 +11,15 @@ namespace StatlerWaldorfCorp.TeamService.Tests
 {
     public class TeamsControllerTests
     {
-        TeamsController _controller = new TeamsController(new TestMemoryTeamRepository());
-
         [Fact]
         public void QueryTeamListReturnsCorrectTeams()
         {
-            var rawTeams = (_controller.GetAllTeams() as OkObjectResult).Value as ICollection<Team>;
-            
+            TeamsController controller = new TeamsController(new TestMemoryTeamRepository());
+
+            var rawTeams = (controller.GetAllTeams() as OkObjectResult).Value as ICollection<Team>;  
+
             var teams = new List<Team>(rawTeams);
+
             Assert.Equal(teams.Count, 2);
             Assert.Equal(teams[0].Name, "one");
             Assert.Equal(teams[1].Name, "two");

@@ -15,8 +15,9 @@ namespace StatlerWaldorfCorp.TeamService.Tests
         public void GetMemberTeamIdExistingMemberTeamIdReturned()
         {
             var repository = new TestMemoryTeamRepository();
-            var team = repository.GetTeams().First();
+            var team = new Team("John Smith's team", Guid.NewGuid());
             team.Members.Add(_johnSmith);
+            repository.AddTeam(team);
             var membersController = new MembersController(repository, null);
 
             var result = (TeamIdResponse)(membersController.GetMemberTeamId(_johnSmith.Id) as ObjectResult).Value;
