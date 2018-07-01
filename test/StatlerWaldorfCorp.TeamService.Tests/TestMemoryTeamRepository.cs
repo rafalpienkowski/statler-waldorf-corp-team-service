@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using StatlerWaldorfCorp.TeamService.Models;
 using StatlerWaldorfCorp.TeamService.Persistence;
@@ -12,8 +13,8 @@ namespace StatlerWaldorfCorp.TeamService.Tests
 		private static ICollection<Team> CreateInitialFake()
 		{
 			var teams = new List<Team>();
-			teams.Add(new Team("one"));
-			teams.Add(new Team("two"));
+			teams.Add(new Team("one", Guid.NewGuid()));
+			teams.Add(new Team("two", Guid.NewGuid()));
 
 			return teams;
 		}

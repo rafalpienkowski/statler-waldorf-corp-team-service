@@ -106,5 +106,31 @@ namespace StatlerWaldorfCorp.TeamService
 
             return Ok(team.Members);
         }
+
+        
+		[HttpGet]
+		[Route("/api/members/{memberId}/team")]
+		public IActionResult GetMemberTeamId(Guid memberId) 
+		{
+			Guid result = GetTeamIdForMember(memberId);
+			if (result != Guid.Empty) {
+				return this.Ok(new TeamIdResponse{
+					TeamId = result
+				});
+			} else {
+				return NotFound();
+			}
+        }
+
+        private Guid GetTeamIdForMember(Guid memberId) 
+		{
+			foreach (var team in _teamRepository.GetTeams()) {
+				var member = team.Members.FirstOrDefault( m => m.Id == memberId);
+				if (member != null) {
+					return team.Id;
+				}
+			}
+			return Guid.Empty;
+        }
     }
 }
