@@ -50,7 +50,7 @@ integration:
         name: copy config
         cwd: src/StatlerWaldorfCorp.TeamService
         code: |
-          cp appsettings*json /test/StatlerWaldorfCorp.TeamService.Tests.Integration
+          cp appsettings*json $WERCKER_ROOT/test/StatlerWaldorfCorp.TeamService.Tests.Integration
     - script:
         name: setting-env-variables
         cwd: test/StatlerWaldorfCorp.TeamService.Tests.Integration
