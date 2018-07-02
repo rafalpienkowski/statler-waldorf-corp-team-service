@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\StatlerWaldorfCorp.TeamService\StatlerWaldorfCorp.TeamService.csproj" />
-    <PackageReference Include="Microsoft.AspNetCore.MVC" Version="2.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.8" />
   </ItemGroup>
 
 </Project>

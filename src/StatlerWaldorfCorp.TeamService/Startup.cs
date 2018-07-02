@@ -1,12 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Http;
 using StatlerWaldorfCorp.TeamService.Persistence;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using StatlerWaldorfCorp.TeamService.LocationClient;
-using Microsoft.Extensions.Configuration.Json;
+using StatlerWaldorfCorp.TeamService.Models;
 
 namespace StatlerWaldorfCorp.TeamService
 {
@@ -14,8 +13,8 @@ namespace StatlerWaldorfCorp.TeamService
     {
         public static string[] Args { get; set; } = new string[] { };
         public IConfiguration Configuration { get; }
-        private ILogger logger;
-        private ILoggerFactory loggerFactory;
+        private ILogger _logger;
+        private ILoggerFactory _loggerFactory;
         
         public Startup(IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
@@ -27,19 +26,22 @@ namespace StatlerWaldorfCorp.TeamService
 
             Configuration = builder.Build();
 
-            this.loggerFactory = loggerFactory;
-            this.loggerFactory.AddConsole(LogLevel.Information);
-            this.loggerFactory.AddDebug();
+            _loggerFactory = loggerFactory;
+            _loggerFactory.AddConsole(LogLevel.Information);
+            _loggerFactory.AddDebug();
 
-            this.logger = this.loggerFactory.CreateLogger("Startup");
+            _logger = _loggerFactory.CreateLogger("Startup");
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddOptions();
             services.AddMvc();
-            services.AddSingleton<ITeamRepository, MemoryTeamRepository>();
+
+            services.Configure<MongoDbSettings>(Configuration.GetSection("mongodb"));
+
+            services.AddSingleton<ITeamRepository, TeamRepository>();
             var locationUrl = Configuration.GetSection("location:url").Value;
-            logger.LogInformation($"Using {locationUrl} for location service URL.");
             services.AddSingleton<ILocationClient>(new HttpLocationClient(locationUrl));
         }
 

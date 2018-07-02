@@ -77,6 +77,7 @@ namespace StatlerWaldorfCorp.TeamService
             }
             team.Members.Remove(memberToUpdate);
             team.Members.Add(member);
+            _teamRepository.UpdateTeam(team);
             return NoContent();
         }
 
@@ -89,8 +90,8 @@ namespace StatlerWaldorfCorp.TeamService
             {
                 return NotFound();
             }
-
             team.Members.Add(member);
+            _teamRepository.UpdateTeam(team);
             return Created($"/teams/{teamId}/[controller]/{member.Id}", member);
         }
 
@@ -103,7 +104,13 @@ namespace StatlerWaldorfCorp.TeamService
             {
                 return NotFound();
             }
-
+            var member = team.Members.FirstOrDefault(m => m.Id.Equals(memberId));
+            if (member == null)
+            {
+                return NotFound();
+            }
+            team.Members.Remove(member);
+            _teamRepository.UpdateTeam(team);
             return Ok(team.Members);
         }
 
