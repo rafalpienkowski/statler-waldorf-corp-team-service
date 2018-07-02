@@ -67,8 +67,8 @@ integration:
         cwd: test/StatlerWaldorfCorp.TeamService.Tests.Integration
         code: |
           dotnet test
-  packaging:
-    steps:
+packaging:
+  steps:
     - script:
         name: copy binary
         cwd: src/StatlerWaldorfCorp.TeamService
