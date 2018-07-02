@@ -18,4 +18,8 @@
     <ProjectReference Include="..\..\src\StatlerWaldorfCorp.TeamService\StatlerWaldorfCorp.TeamService.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+   <None Include="..\..\src\StatlerWaldorfCorp.TeamService\appsettings.json" CopyToPublishDirectory="Always" />
+  </ItemGroup>
+
 </Project>
