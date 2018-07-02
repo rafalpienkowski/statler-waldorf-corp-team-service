@@ -42,6 +42,12 @@ test:
 integration:
   steps:
     - script:
+        name: setting-env-variables
+        cwd: test/StatlerWaldorfCorp.TeamService.Tests.Integration
+        code: | 
+          export MongoDb__ConncetionString=$CONNECTION_STRING
+          export MongoDb__Database=$DATABASE
+    - script:
         name: integration-test-restore
         cwd: test/StatlerWaldorfCorp.TeamService.Tests.Integration
         code: |
@@ -62,6 +68,7 @@ integration:
         code: |
           cp -r . $WERCKER_OUTPUT_DIR/app 
 deploy:
+  box: microsoft/aspnetcore:2.0
   steps:
     - internal/docker-push:
         repository: rafalpienkowski/statler-waldorf-corp-team-service
