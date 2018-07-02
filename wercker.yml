@@ -46,7 +46,8 @@ test:
           dotnet test
 integration:
   steps:
-    name: copy config
+    - script:
+        name: copy config
         cwd: src/StatlerWaldorfCorp.TeamService
         code: |
           cp appsettings*json test/StatlerWaldorfCorp.TeamService.Tests.Integration
