@@ -61,7 +61,7 @@ integration:
         cwd: src/StatlerWaldorfCorp.TeamService
         code: |
           cp appsettings*json $WERCKER_ROOT/test/StatlerWaldorfCorp.TeamService.Tests.Integration/bin/Debug/netcoreapp2.0
-     - script:
+    - script:
         name: export-env
         cwd: src/StatlerWaldorfCorp.TeamService
         code: |           
