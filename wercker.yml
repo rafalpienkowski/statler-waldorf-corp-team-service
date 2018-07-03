@@ -1,7 +1,7 @@
 box: microsoft/dotnet:2.0.0-sdk
-services:
-  - id: mongo
-    tag: 3.6.5
+# services:
+#   - id: mongo
+#     tag: 3.6.5
 services:
   - id: postgres
       POSTGRES_USER: integrator   
