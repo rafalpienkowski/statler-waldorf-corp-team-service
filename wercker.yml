@@ -64,7 +64,8 @@ integration:
         code: env
     - script:
         code: |
-           export MONGODB__CONNECTIONSTRING="$MONGO_PORT_27017_TCP"
+           export MONGODB__CONNECTIONSTRING="mongodb://$MONGODB_PORT_27017_TCP_ADDR:$MONGODB_PORT_27017_TCP_PORT"
+           echo "MONGODB__CONNECTIONSTRING $MONGODB__CONNECTIONSTRING"
            export MONGODB__DATABASE="TeamService"
     - script:
         name: integration-test-run
