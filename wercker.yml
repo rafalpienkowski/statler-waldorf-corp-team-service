@@ -1,9 +1,11 @@
 box: microsoft/dotnet:2.0.0-sdk
 services:
   - id: mongo
+    name: mongodb
     tag: 3.6.5
 services:
   - id: postgres
+    name: postgress
     env:
       POSTGRES_USER: integrator   
       POSTGRES_DB: locationservice
@@ -65,8 +67,10 @@ integration:
         code: |
           cp appsettings*json $WERCKER_ROOT/test/StatlerWaldorfCorp.TeamService.Tests.Integration/bin/Debug/netcoreapp2.0
     - script:
+        name: env
+        code: env
+    - script:
         code: |
-           echo "test"
            echo "POSTGRES_PORT_5432_TCP_ADDR $POSTGRES_PORT_5432_TCP_ADDR"           
            echo "MONGO_ENV_MONGO_MAJOR $MONGO_ENV_MONGO_MAJOR"
            echo "MONGO_PORT $MONGO_PORT"
