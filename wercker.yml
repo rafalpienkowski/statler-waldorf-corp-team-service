@@ -60,12 +60,8 @@ integration:
         code: |
           cp appsettings*json $WERCKER_ROOT/test/StatlerWaldorfCorp.TeamService.Tests.Integration/bin/Debug/netcoreapp2.0
     - script:
-        name: env
-        code: env
-    - script:
         code: |
            export MONGODB__CONNECTIONSTRING="mongodb://$MONGODB_PORT_27017_TCP_ADDR:$MONGODB_PORT_27017_TCP_PORT"
-           echo "MONGODB__CONNECTIONSTRING $MONGODB__CONNECTIONSTRING"
            export MONGODB__DATABASE="TeamService"
     - script:
         name: integration-test-run
