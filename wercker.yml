@@ -1,7 +1,6 @@
 box: microsoft/dotnet:2.0.0-sdk
 services:
    - id: mongo
-     name: localhost
      tag: 3.6.5
      env:
        AUTH=no
@@ -62,6 +61,12 @@ integration:
         cwd: src/StatlerWaldorfCorp.TeamService
         code: |
           cp appsettings*json $WERCKER_ROOT/test/StatlerWaldorfCorp.TeamService.Tests.Integration/bin/Debug/netcoreapp2.0
+     - script:
+        name: export-env
+        cwd: src/StatlerWaldorfCorp.TeamService
+        code: |           
+           export MONGODB__CONNECTIONSTRING="mongodb://mongo:27017"
+           export MONGODB__DATABASE="TeamService"
     - script:
         name: integration-test-run
         cwd: test/StatlerWaldorfCorp.TeamService.Tests.Integration
