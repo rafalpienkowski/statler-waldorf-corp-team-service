@@ -65,7 +65,15 @@ integration:
         name: export-env
         cwd: src/StatlerWaldorfCorp.TeamService
         code: |           
-           export MONGODB__CONNECTIONSTRING="$MONGO_PORT_27017_TCP_ADDR"
+           echo $MONGO_ENV_MONGO_MAJOR
+           echo $MONGO_PORT
+           echo $MONGO_ENV_MONGO_VERSION
+           echo $MONGO_PORT_27017_TCP
+           echo $MONGO_PORT_27017_TCP_PROTO
+           echo $MONGO_PORT_27017_TCP_ADDR
+           echo $MONGO_NAME
+           echo $MONGO_PORT_27017_TCP_PORT
+           export MONGODB__CONNECTIONSTRING="$MONGO_PORT_27017_TCP"
            export MONGODB__DATABASE="TeamService"
     - script:
         name: integration-test-run
