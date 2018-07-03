@@ -47,17 +47,6 @@ test:
 integration:
   steps:
     - script:
-        name: copy config
-        cwd: src/StatlerWaldorfCorp.TeamService
-        code: |
-          cp appsettings*json $WERCKER_ROOT/test/StatlerWaldorfCorp.TeamService.Tests.Integration
-    - script:
-        name: setting-env-variables
-        cwd: test/StatlerWaldorfCorp.TeamService.Tests.Integration
-        code: | 
-          export MongoDb__ConncetionString=$CONNECTION_STRING
-          export MongoDb__Database=$DATABASE
-    - script:
         name: integration-test-restore
         cwd: test/StatlerWaldorfCorp.TeamService.Tests.Integration
         code: |
@@ -67,6 +56,11 @@ integration:
         cwd: test/StatlerWaldorfCorp.TeamService.Tests.Integration
         code: |
           dotnet build
+    - script:
+        name: copy config
+        cwd: src/StatlerWaldorfCorp.TeamService
+        code: |
+          cp appsettings*json $WERCKER_ROOT/test/StatlerWaldorfCorp.TeamService.Tests.Integration/bin/Debug/netcoreapp2.0
     - script:
         name: integration-test-run
         cwd: test/StatlerWaldorfCorp.TeamService.Tests.Integration
