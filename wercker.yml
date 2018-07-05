@@ -16,11 +16,6 @@ build:
         code: |
           dotnet build
     - script:
-        name: publish
-        cwd: src/StatlerWaldorfCorp.TeamService
-        code: |
-          dotnet publish -c Release -o publish	 
-    - script:
         name: chmod
         cwd: src/StatlerWaldorfCorp.TeamService
         code: |
@@ -71,6 +66,11 @@ integration:
 packaging:
   steps:
     - script:
+        name: publish
+        cwd: src/StatlerWaldorfCorp.TeamService
+        code: |
+          dotnet publish -o publish
+    - script:
         name: copy binary
         cwd: src/StatlerWaldorfCorp.TeamService
         code: |
@@ -80,6 +80,11 @@ packaging:
         cwd: src/StatlerWaldorfCorp.TeamService
         code: |
           cp appsettings*json $WERCKER_OUTPUT_DIR/app/publish
+    - script:
+        name: copy entrypoint
+        cwd: src/StatlerWaldorfCorp.TeamService
+        code: |
+          cp docker_entrypoint.sh $WERCKER_OUTPUT_DIR/app   
 deploy:
   box: microsoft/aspnetcore:2.0
   steps:
